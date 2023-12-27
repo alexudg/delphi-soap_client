@@ -1,0 +1,3 @@
+* add SOAP service
+  - menu File|New|Other...|WebServices|WSDL Importer|[OK]|
+    write URL or file with WSDL code|[Next >>]|[Next >>]|[Finish] 
