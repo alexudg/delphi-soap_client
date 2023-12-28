@@ -3,6 +3,13 @@ unit uMain;
 // ************************************************************************ //
 // this use http://www.dneonline.com/calculator.asmx?WSDL service simple arithmetic
 // only use GetCalculatorSoap() method
+//
+// author: Alejandro Ramirez Macias
+// email: alexudg@gmail.com
+// facebook: facebook.com/planetSistemas
+// date: december 2023
+// ide: Delphi 10 Seattle
+//
 // ************************************************************************ //
 
 interface
@@ -65,7 +72,4 @@ end;
 
 begin
   Winapi.Windows.OutputDebugString(sLineBreak + 'uMain CREATED');
-
-
-  Winapi.Windows.OutputDebugString(PChar(res.ToString));
 end.
