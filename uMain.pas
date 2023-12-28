@@ -10,10 +10,16 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  calculator;
+  calculator, Vcl.StdCtrls, Vcl.ExtCtrls;
 
 type
   TfrmMain = class(TForm)
+    txtNumA: TLabeledEdit;
+    txtNumB: TLabeledEdit;
+    txtResult: TLabeledEdit;
+    boxOperations: TRadioGroup;
+    btnRequest: TButton;
+    procedure btnRequestClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -22,16 +28,44 @@ type
 
 var
   frmMain: TfrmMain;
-  calc: calculator.CalculatorSoap;
-  res: integer;
 
 implementation
 
 {$R *.dfm}
 
+procedure TfrmMain.btnRequestClick(Sender: TObject);
+var
+  numA, numB: integer;
+  calc: calculator.CalculatorSoap;
+  res: integer;
+begin
+  if (not TryStrToInt(txtNumA.Text, numA)) then
+  begin
+    Exit;
+  end;
+  if (not TryStrToInt(txtNumB.Text, numB)) then
+  begin
+    Exit;
+  end;
+  calc := calculator.GetCalculatorSoap(true);
+  case (boxOperations.ItemIndex) of
+    0: // add
+      res := calc.Add(numA, numB);
+    1: // subtract
+      res := calc.Subtract(numA, numB);
+    2: // multiply
+      res := calc.Multiply(numA, numB);
+    3: // divide
+      res := calc.Divide(numA, numB);
+    else
+      res := -1;
+  end;
+  txtResult.Text := res.ToString();
+end;
+
 begin
   Winapi.Windows.OutputDebugString(sLineBreak + 'uMain CREATED');
-  calc := calculator.GetCalculatorSoap();
-  res := calc.Add(25, 6);
+
+
   Winapi.Windows.OutputDebugString(PChar(res.ToString));
 end.
